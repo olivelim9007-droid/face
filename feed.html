@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>피드</title>
+		<link rel="stylesheet" href="./feed-styles.css">
+	</head>
+	<body class="elem-1">
+	<div class="elem-2">
+		<div class="elem-3">
+			<!-- Top: 고정 -->
+			<header class="feed-top">
+				<div class="elem-39">피드</div>
+			</header>
+			<!-- 썸네일: 스크롤 영역 -->
+			<div class="feed-scroll">
+				<div class="feed-scroll-inner">
+					<div class="elem-4">
+						<div class="elem-5">
+							<div class="elem-6">
+								<video class="elem-7" src="./img/movie1.mp4" autoplay muted loop playsinline poster="./img/image.png"></video>
+							</div>
+							<div class="elem-8">5-Minute Quick Makeup</div>
+						</div>
+						<div class="elem-9">
+							<div class="elem-10">
+								<video class="elem-11" src="./img/movie6.mp4" autoplay muted loop playsinline poster="./img/duplication_image_1.png"></video>
+							</div>
+							<div class="elem-12">we love a skin prep</div>
+						</div>
+						<div class="elem-13">
+							<div class="elem-14">
+								<video class="elem-15" src="./img/movie5.mp4" autoplay muted loop playsinline poster="./img/duplication_image_2.png"></video>
+							</div>
+						</div>
+					</div>
+					<div class="elem-16">
+						<div class="elem-17">
+							<div class="elem-18">
+								<video class="elem-19" src="./img/movie2.mp4" autoplay muted loop playsinline poster="./img/duplication_image_3.png"></video>
+							</div>
+							<div class="elem-20">5-Minute Quick Makeup</div>
+						</div>
+						<div class="elem-21">
+							<div class="elem-22">
+								<img class="elem-23" src="./img/duplication_image_4.png"></img>
+								<video class="elem-24" src="./img/movie4.mp4" autoplay muted loop playsinline poster="./img/duplication_image_5.png"></video>
+							</div>
+							<div class="elem-25">5-Minute Quick Makeup</div>
+						</div>
+						<div class="elem-26">
+							<div class="elem-27">
+								<video class="elem-28" src="./img/movie3.mp4" autoplay muted loop playsinline poster="./img/duplication_image_6.png"></video>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- component/tap/3label: 고정 -->
+			<footer class="feed-tab">
+				<div class="elem-29">
+					<div class="elem-30">
+						<div class="elem-31">
+							<a href="./index.html" class="elem-32"><div class="elem-33">기록</div></a>
+							<a href="./index.html" class="elem-34"><div class="elem-35">카메라</div></a>
+							<div class="elem-36">
+								<div class="elem-37">피드</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="elem-40">
+					<div class="elem-41">
+						<img class="elem-42" src="./img/line.svg"></img>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- 영상/이미지 확대 팝업 (클릭 시 소리 재생) -->
+	<div id="feed-popup" class="feed-popup is-hidden" aria-hidden="true">
+		<div class="feed-popup-backdrop"></div>
+		<div class="feed-popup-content">
+			<button type="button" class="feed-popup-close" aria-label="닫기">&times;</button>
+			<video id="feed-popup-video" class="feed-popup-media" controls playsinline></video>
+			<img id="feed-popup-img" class="feed-popup-media is-hidden" alt="">
+		</div>
+	</div>
+</body>
+	<script src="./feed.js"></script>
+	<script src="https://pages.oss.navercorp.com/UIT/figma-sync/plugin/prod/core/resize.js"></script>
+</html>

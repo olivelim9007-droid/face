@@ -194,7 +194,8 @@ async function predictWebcam() {
       state = "done";
       if (!resultNavigated) {
         resultNavigated = true;
-        const score = Math.min(100, Math.max(0, Math.round(skin.hydration * 40 + skin.oil * 30 + 30)));
+        const base = Math.min(100, Math.max(0, Math.round(skin.hydration * 40 + skin.oil * 30 + 30)));
+        const score = Math.min(100, Math.max(0, base + Math.floor(Math.random() * 21) - 10));
         setTimeout(() => {
           openResultModal(score);
         }, 800);
@@ -270,7 +271,8 @@ function runFallbackScanLoop() {
       state = "done";
       if (!resultNavigated) {
         resultNavigated = true;
-        const score = Math.min(100, Math.max(0, Math.round(skin.hydration * 40 + skin.oil * 30 + 30)));
+        const base = Math.min(100, Math.max(0, Math.round(skin.hydration * 40 + skin.oil * 30 + 30)));
+        const score = Math.min(100, Math.max(0, base + Math.floor(Math.random() * 21) - 10));
         setTimeout(() => openResultModal(score), 300);
       }
       return;

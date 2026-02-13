@@ -51,7 +51,7 @@
 								<span class="result-elem-23">피부 점수는 </span><span class="result-elem-24" id="skin-score">80</span><span class="result-elem-25">점</span>
 							</div>
 						</div>
-						<div class="result-elem-26">컨디션은 좋지만 수분이 금방 빠져나가는 타입으로 보여요. 속부터 채우는 촉촉한 케어가 필요해요.<br/>피부 장벽과 탄력은 안정적이지만 수분 손실 지표가 다소 높습니다.</div>
+						<div class="result-elem-26" id="result-briefing">컨디션은 좋지만 수분이 금방 빠져나가는 타입으로 보여요. 속부터 채우는 촉촉한 케어가 필요해요.<br/>피부 장벽과 탄력은 안정적이지만 수분 손실 지표가 다소 높습니다.</div>
 					</div>
 				</div>
 				<div class="result-elem-27">
@@ -75,7 +75,7 @@
 					<div class="result-elem-41">
 						<div class="result-elem-42">루틴</div>
 					</div>
-					<div class="result-elem-43">
+					<div class="result-elem-43" id="result-routine-list">
 						<div class="result-elem-44">
 							<div class="result-elem-45">저자극 클렌징</div>
 						</div>
@@ -151,10 +151,50 @@
 </body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script>
-		// 스캔 결과에서 전달된 점수 표시 (선택)
+		// 피부 점수 랜덤 (전달값 없으면 62~95)
 		var params = new URLSearchParams(location.search);
 		var score = params.get('score');
-		if (score) document.getElementById('skin-score').textContent = score;
+		if (!score) score = 62 + Math.floor(Math.random() * 34);
+		var el = document.getElementById('skin-score');
+		if (el) el.textContent = score;
+
+		// 브리핑 문구 랜덤
+		var briefingOptions = [
+			'컨디션은 좋지만 수분이 금방 빠져나가는 타입으로 보여요. 속부터 채우는 촉촉한 케어가 필요해요.<br/>피부 장벽과 탄력은 안정적이지만 수분 손실 지표가 다소 높습니다.',
+			'피부 톤이 균일하고 탄력 지표가 양호해요. 유수분 밸런스를 유지하는 게 좋아요.<br/>자외선 차단과 수분 케어를 꾸준히 하시면 좋겠어요.',
+			'전반적으로 안정적인 피부 상태예요. 색소 침착과 주름 지표가 양호합니다.<br/>지금의 루틴을 유지하시고, 수분 보충만 보강해 보세요.',
+			'약간의 피로도가 보이지만 전반적으로 건강한 편이에요. 보습과 휴식을 충분히.<br/>저자극 제품으로 피부를 쉬게 해 주는 것도 도움이 됩니다.',
+			'유수분 밸런스가 좋고 피부 장벽도 안정적이에요. 현재 컨디션을 유지하기 좋은 타입입니다.<br/>산화 스트레스 지표만 조금 신경 써 주시면 좋겠어요.'
+		];
+		var briefingEl = document.getElementById('result-briefing');
+		if (briefingEl) briefingEl.innerHTML = briefingOptions[Math.floor(Math.random() * briefingOptions.length)];
+
+		// 루틴 항목 랜덤 (5개 세트 중 하나)
+		var routineSets = [
+			['저자극 클렌징', '수분 토너 충분히 흡수', '히알루론산/판테놀 에센스', '보습크림으로 수분 잠금', '자외선 차단'],
+			['오일 클렌징 후 저자극 세안', '세라마이드 토너', '비타민 C 세럼', '수분 크림', 'SPF 30+ 선크림'],
+			['폼 클렌징', '알로에 토너', '나이아신아마이드 앰플', '수딩 크림', '재차단'],
+			['더블 클렌징', '수분 팩 1주 2회', '레티놀 저농도 도입', '보습 밤', '자외선 차단 필수'],
+			['젠틀 클렌징', '탄산 토너', '펩타이드 에센스', '세라마이드 크림', '광채 케어 선크림']
+		];
+		var routineSet = routineSets[Math.floor(Math.random() * routineSets.length)];
+		var routineItems = document.querySelectorAll('#result-routine-list .result-elem-45, #result-routine-list .result-elem-49, #result-routine-list .result-elem-51, #result-routine-list .result-elem-53, #result-routine-list .result-elem-55');
+		routineItems.forEach(function(item, i) { if (routineSet[i]) item.textContent = routineSet[i]; });
+
+		// 오늘의 추천 스타일 문구 랜덤
+		var styleTitles = [['Cheek', 'Peach', 'Cheek', 'Wavy'], ['Coral', 'Nude', 'Rose', 'Curly'], ['Pink', 'Beige', 'Brown', 'Volume']];
+		var styleDescs = [
+			['톤 대비 결과, 저채도 핑크가 가장 안정적입니다.', '채도 분석 결과, 저채도 피치가 가장 안정적입니다.', '눈동자 브라운 컬러가 자연스럽게 균형을 맞춥니다.', '얼굴 윤곽 분석 결과 웨이브 볼륨이 입체감을 줍니다.'],
+			['피부톤과 잘 어울리는 코랄 포인트를 추천해요.', '네추럴한 누드 톤이 피부와 조화를 이룹니다.', '로즈 컬러가 혈색을 밝게 보이게 해요.', '컬 스타일이 얼굴형과 잘 맞습니다.'],
+			['소프트 핑크가 피부 톤을 부드럽게 연출해요.', '베이지 계열이 자연스러운 인상을 줍니다.', '브라운 포인트가 눈매를 부각시킵니다.', '볼륨감이 얼굴 윤곽을 살려 줍니다.']
+		];
+		var styleIdx = Math.floor(Math.random() * styleTitles.length);
+		var titles = styleTitles[styleIdx];
+		var descs = styleDescs[styleIdx];
+		var styleNames = document.querySelectorAll('.result-elem-64, .result-elem-69, .result-elem-74, .result-elem-79');
+		var styleTexts = document.querySelectorAll('.result-elem-65, .result-elem-70, .result-elem-75, .result-elem-80');
+		styleNames.forEach(function(el, i) { if (titles[i]) el.textContent = titles[i]; });
+		styleTexts.forEach(function(el, i) { if (descs[i]) el.textContent = descs[i]; });
 		// 스캔 시 캡처한 얼굴 이미지를 result-elem-19에 표시
 		try {
 			var faceUrl = sessionStorage.getItem('faceCapture');
