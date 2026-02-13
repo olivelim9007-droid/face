@@ -79,14 +79,14 @@ html, body {
   background-color: var(--backgrounds--grouped--primary, #F2F2F7);
 }
 
-/* 썸네일: 스크롤 영역 (탭과 겹치지 않도록 하단 패딩) */
+/* 썸네일: 스크롤 영역 — 하단 여백 없이 탭바가 콘텐츠 위를 덮음 */
 .feed-scroll {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 58px;
+  padding-bottom: 0;
   box-sizing: border-box;
 }
 
@@ -96,7 +96,7 @@ html, body {
   width: 375px;
 }
 
-/* component/tap/3label: 카메라와 동일 위치 (top 754px) */
+/* component/tap/3label: 하단 고정, 스크롤 시에도 여백 없이 콘텐츠 위를 덮음 */
 .feed-tab {
   position: absolute;
   top: 754px;
@@ -109,6 +109,8 @@ html, body {
   align-items: center;
   width: 100%;
   pointer-events: none;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
 }
 
 .feed-tab > * {

@@ -1,0 +1,12 @@
+{
+  "name": "피부 진단",
+  "short_name": "피부진단",
+  "description": "피부 진단 앱",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F2F7",
+  "theme_color": "#F2F2F7",
+  "scope": "./",
+  "icons": []
+}
