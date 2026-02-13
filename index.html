@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTMLCSSBuilder Test Result</title>
+	<link rel="stylesheet" href="./styles.css">
+</head>
+
+<body class="elem-1">
+	<div class="elem-2">
+		<div class="elem-3">
+			<img class="elem-4 camera-fallback" src="./img/profile_image.png" alt="Profile image fallback"></img>
+			<video id="camera" class="elem-4 camera-video is-hidden" autoplay playsinline muted></video>
+			<canvas id="camera-overlay" class="elem-4 camera-overlay is-hidden" aria-hidden="true"></canvas>
+			<div class="camera-status" id="camera-status" aria-live="polite"></div>
+			<div class="elem-5">
+				<div class="elem-6">
+					<div class="elem-7">기록</div>
+				</div>
+				<div class="elem-8">
+					<div class="elem-9">카메라</div>
+				</div>
+				<div class="elem-10">
+					<div class="elem-11">피드</div>
+				</div>
+			</div>
+			<div class="elem-12">
+				<div class="elem-13">
+					<img class="elem-14" src="./img/line.svg"></img>
+				</div>
+			</div>
+			<div class="elem-15">
+				<div class="elem-16">
+					<img class="elem-17" src="./img/symbol_container.svg"></img>
+					<div class="elem-18">
+						<div class="elem-19">Clear</div>
+						<div class="elem-20">UV Index7</div>
+					</div>
+				</div>
+			</div>
+			<div class="elem-21">
+				<div class="elem-22">
+					<div class="elem-23">Seoul</div>
+				</div>
+				<div class="elem-24">65º</div>
+			</div>
+			<div class="elem-25"></div>
+			<div class="elem-26" id="start-scan" role="button" tabindex="0" aria-label="진단 시작">
+				<div class="elem-27">진단 하기</div>
+			</div>
+		</div>
+	</div>
+	<!-- 피부 진단 결과 모달: 카메라 위에 올라옴, 뒤에 카메라 화면 보임 -->
+	<div id="result-modal" class="result-modal is-hidden" aria-hidden="true">
+		<div class="result-modal-backdrop"></div>
+		<div class="result-modal-content">
+			<iframe id="result-iframe" title="피부 진단 결과" src="about:blank"></iframe>
+		</div>
+	</div>
+</body>
+<script type="module" src="./script.js"></script>
+<script src="https://pages.oss.navercorp.com/UIT/figma-sync/plugin/prod/core/resize.js"></script>
+
+</html>

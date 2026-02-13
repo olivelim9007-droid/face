@@ -1,0 +1,390 @@
+* {box-sizing: border-box; margin: 0; padding: 0;}
+/*
+:root {
+  --gray-05: #9D9DA4;
+  --base-white: #FFF;
+}
+*/
+
+.elem-1 {
+  padding: 0;
+  margin: 0;
+}
+
+.elem-2 {
+  border-width: 1px;
+  border-style: dotted;
+  border-color: #999999;
+  overflow: hidden;
+  position: relative;
+  width: 375px;
+  height: 812px;
+  margin: 0 auto;
+}
+
+.elem-3 {
+  background-color: var(--2-gray-gray-900, #000);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.elem-4 {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 375px;
+  height: 812px;
+  z-index: 1;
+}
+
+.camera-video {
+  object-fit: cover;
+}
+
+.camera-fallback {
+  object-fit: cover;
+}
+.camera-overlay {
+  pointer-events: none;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.camera-status {
+  display: none;
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.camera-status.is-visible {
+  display: block;
+}
+
+.elem-5 {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
+  position: absolute;
+  left: 87.5px;
+  top: 754px;
+  width: 200px;
+  z-index: 2;
+}
+
+.elem-6 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0px;
+}
+
+.elem-7 {
+  font-family: Apple SD Gothic Neo;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.elem-8 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0px;
+}
+
+.elem-9 {
+  font-family: Apple SD Gothic Neo;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #FFF;
+}
+
+.elem-10 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0px;
+}
+
+.elem-11 {
+  font-family: Apple SD Gothic Neo;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.elem-12 {
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translateX(-50%);
+  width: 375px;
+  height: 34px;
+  z-index: 3;
+}
+
+.elem-13 {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  transform: translateX(-50%);
+  padding-top: 26px;
+  padding-bottom: 8px;
+}
+
+.elem-14 {
+  display: block;
+  flex-shrink: 0;
+  width: 134px;
+  height: 5px;
+}
+
+.elem-15 {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 54px;
+  position: absolute;
+  left: 233px;
+  top: 44px;
+  z-index: 4;
+}
+
+.elem-16 {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+  width: 126px;
+  padding-top: 3px;
+}
+
+.elem-17 {
+  display: block;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.elem-18 {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  font-weight: 200;
+}
+
+.elem-19 {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 10.27px;
+  text-align: right;
+  white-space: nowrap;
+  color: #FFF;
+  align-self: stretch;
+}
+
+.elem-20 {
+  opacity: 0.32;
+  mix-blend-mode: plus-lighter /* plus-lighter는 CSS에서 지원되지 않음 (근사치: lighten + filter: brightness(1.2))*/;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 10.27px;
+  text-align: right;
+  white-space: nowrap;
+  color: #FFF;
+  align-self: stretch;
+}
+
+.elem-21 {
+  display: inline-flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 9px;
+  position: absolute;
+  left: 16px;
+  top: 44px;
+  width: 126px;
+  z-index: 5;
+}
+
+.elem-22 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+}
+
+.elem-23 {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 100;
+  /* line-height가 font-size보다 작아 상단이 잘릴 수 있음 */
+  line-height: 18px;
+  text-align: left;
+  white-space: nowrap;
+  color: #FFF;
+  display: inline-block;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.elem-24 {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.05);
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 33.44px;
+  text-align: left;
+  word-break: break-all;
+  color: var(--base-white, #FFF);
+  flex-shrink: 0;
+  width: 126px;
+}
+
+.elem-25 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 375px;
+  height: 44px;
+  z-index: 6;
+}
+
+.elem-26 {
+  background: var(--linear, linear-gradient(90deg, #E915AB 10.78%, #A255F8 68.27%, #4D8BFF 90.18%, #00CFFF 106.82%));
+  border-radius: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  left: 50%;
+  top: 676px;
+  transform: translateX(-50%);
+  width: 216px;
+  height: 56px;
+  padding-top: 16px;
+  padding-right: 20px;
+  padding-bottom: 16px;
+  padding-left: 20px;
+  z-index: 7;
+  cursor: pointer;
+  user-select: none;
+}
+
+.elem-26:focus-visible {
+  outline: 2px solid rgba(0, 207, 255, 0.85);
+  outline-offset: 4px;
+}
+
+.elem-27 {
+  font-family: Apple SD Gothic Neo;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  white-space: nowrap;
+  color: #FFF;
+}
+
+/* 결과 모달: 전체 화면, 슬라이드 업은 결과 페이지 result-elem-4에서 */
+.result-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  pointer-events: auto;
+}
+
+.result-modal.is-hidden {
+  display: none !important;
+}
+
+.result-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.result-modal-content {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border: none;
+  outline: none;
+}
+
+.result-modal-content iframe {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
