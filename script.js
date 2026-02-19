@@ -282,13 +282,20 @@ function runFallbackScanLoop() {
   requestAnimationFrame(tick);
 }
 
-// --- Drawing Helpers ---
+// --- Drawing Helpers (거울 모드: 랜드마크 x 좌우 반전) ---
+function mirrorX(normalizedX) {
+  return 1 - normalizedX;
+}
+function landmarkToCanvasX(xNorm, w) {
+  return mirrorX(xNorm) * w;
+}
 
 function getBoundingBox(landmarks, w, h) {
   let minX = 1, minY = 1, maxX = 0, maxY = 0;
   for (const p of landmarks) {
-    if (p.x < minX) minX = p.x;
-    if (p.x > maxX) maxX = p.x;
+    const fx = mirrorX(p.x);
+    if (fx < minX) minX = fx;
+    if (fx > maxX) maxX = fx;
     if (p.y < minY) minY = p.y;
     if (p.y > maxY) maxY = p.y;
   }
@@ -412,7 +419,7 @@ function drawRealLandmarks(ctx, landmarks, t, progress01) {
   for (const feat of features) {
     if (!landmarks[feat.idx]) continue;
     const p = landmarks[feat.idx];
-    const px = p.x * w;
+    const px = landmarkToCanvasX(p.x, w);
     const py = p.y * h;
 
     const wobble = 1.0 * Math.sin(t * 0.006 + feat.idx);
@@ -463,8 +470,8 @@ function drawRealMesh(ctx, landmarks, t, progress01) {
     const p1 = landmarks[edge.start];
     const p2 = landmarks[edge.end];
     if (p1 && p2) {
-      ctx.moveTo(p1.x * w, p1.y * h);
-      ctx.lineTo(p2.x * w, p2.y * h);
+      ctx.moveTo(landmarkToCanvasX(p1.x, w), p1.y * h);
+      ctx.lineTo(landmarkToCanvasX(p2.x, w), p2.y * h);
     }
   }
   ctx.stroke();
@@ -490,10 +497,10 @@ function drawRealMesh(ctx, landmarks, t, progress01) {
       const p1 = landmarks[edge.start];
       const p2 = landmarks[edge.end];
       if (first) {
-        ctx.moveTo(p1.x * w, p1.y * h);
+        ctx.moveTo(landmarkToCanvasX(p1.x, w), p1.y * h);
         first = false;
       }
-      ctx.lineTo(p2.x * w, p2.y * h);
+      ctx.lineTo(landmarkToCanvasX(p2.x, w), p2.y * h);
     }
     ctx.stroke();
   }
@@ -711,10 +718,14 @@ function captureFaceToStorage() {
       return;
     }
     const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    canvas.width = w;
+    canvas.height = h;
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0);
+    ctx.translate(w, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, 0, 0, w, h);
     sessionStorage.setItem("faceCapture", canvas.toDataURL("image/jpeg", 0.85));
   } catch (e) {
     console.warn("faceCapture 저장 실패:", e);
@@ -746,8 +757,100 @@ window.addEventListener("message", (e) => {
   if (e.data === "closeResultModal") closeResultModal();
 });
 
+// --- 실시간 날씨 (Open-Meteo, API 키 불필요) ---
+const WEATHER_CODE_MAP = {
+  0: "Clear",
+  1: "Mainly Clear",
+  2: "Partly Cloudy",
+  3: "Overcast",
+  45: "Fog",
+  48: "Fog",
+  51: "Drizzle",
+  53: "Drizzle",
+  55: "Drizzle",
+  61: "Rain",
+  63: "Rain",
+  65: "Rain",
+  71: "Snow",
+  73: "Snow",
+  75: "Snow",
+  77: "Snow",
+  80: "Showers",
+  81: "Showers",
+  82: "Showers",
+  85: "Snow",
+  86: "Snow",
+  95: "Thunderstorm",
+  96: "Thunderstorm",
+  99: "Thunderstorm"
+};
+const DEFAULT_LAT = 37.5665;
+const DEFAULT_LON = 126.978;
+
+function setWeatherEl(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+async function loadWeather() {
+  let lat = DEFAULT_LAT;
+  let lon = DEFAULT_LON;
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000, maximumAge: 300000 });
+    });
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+  } catch (_) {
+    /* use default Seoul */
+  }
+
+  try {
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,uv_index&timezone=auto`
+    );
+    if (!res.ok) return;
+    const data = await res.json();
+    const cur = data.current;
+    if (!cur) return;
+    const tempRaw = Number(cur.temperature_2m);
+    const tempRounded = Math.round(tempRaw);
+    const tempStr = tempRounded === 0 && tempRaw !== 0
+      ? tempRaw.toFixed(1) + "º"
+      : tempRounded + "º";
+    const code = cur.weather_code;
+    const uv = cur.uv_index != null ? Math.round(Number(cur.uv_index)) : null;
+    setWeatherEl("weather-temp", tempStr);
+    setWeatherEl("weather-condition", WEATHER_CODE_MAP[code] || "—");
+    setWeatherEl("weather-uv", uv != null ? "UV Index " + uv : "UV Index —");
+  } catch (e) {
+    console.warn("날씨 로드 실패:", e);
+  }
+
+  try {
+    const geoRes = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=ko`
+    );
+    if (!geoRes.ok) return;
+    const geo = await geoRes.json();
+    const city = geo.city || geo.locality || geo.principalSubdivision || geo.countryName || "—";
+    setWeatherEl("weather-location", city);
+    const locEl = document.getElementById("weather-location");
+    if (locEl) {
+      const hasKorean = /[\uAC00-\uD7AF\u1100-\u11FF]/.test(city);
+      locEl.classList.toggle("weather-location--ko", !!hasKorean);
+    }
+  } catch (_) {
+    const fallback = lat === DEFAULT_LAT && lon === DEFAULT_LON ? "Seoul" : "—";
+    setWeatherEl("weather-location", fallback);
+    const locEl = document.getElementById("weather-location");
+    if (locEl) locEl.classList.remove("weather-location--ko");
+  }
+}
+
 // Init
 createFaceLandmarker();
+loadWeather();
 startBtn.addEventListener("click", () => {
   showScanBeam = true;
   state = "detecting";

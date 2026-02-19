@@ -69,13 +69,16 @@ html, body {
   min-height: 0;
 }
 
-/* Top: 고정 */
+/* Top: 고정 — status bar 영역 확보 (safe-area-inset-top) */
 .feed-top {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   width: 100%;
-  padding: 44px 16px 13px 16px;
+  padding-top: max(44px, env(safe-area-inset-top, 0px));
+  padding-right: 16px;
+  padding-bottom: 13px;
+  padding-left: 16px;
   background-color: var(--backgrounds--grouped--primary, #F2F2F7);
 }
 
@@ -88,11 +91,12 @@ html, body {
   -webkit-overflow-scrolling: touch;
   padding-bottom: 0;
   box-sizing: border-box;
+  min-height: 500px;
 }
 
 .feed-scroll-inner {
   position: relative;
-  min-height: 720px;
+  min-height: 1400px;
   width: 375px;
 }
 
@@ -300,7 +304,7 @@ html, body {
   font-family: SF Pro Text;
   font-size: 12px;
   font-style: normal;
-  font-weight: 200;
+  font-weight: 600;
   line-height: 14.4px;
   text-align: left;
   white-space: nowrap;
@@ -398,28 +402,34 @@ html, body {
 }
 
 .elem-29 {
+  position: relative;
   background-color: #FFF;
   backdrop-filter: blur(6px);
   overflow: hidden;
   width: 100%;
-  height: 24px;
+  height: 34px;
   flex-shrink: 0;
 }
 
 .elem-30 {
+  position: absolute;
+  left: 87.5px;
+  top: 0;
+  width: 200px;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
 }
 
 .elem-31 {
   display: inline-flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2px;
   width: 200px;
+  flex-shrink: 0;
 }
 
 .elem-32 {

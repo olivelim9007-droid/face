@@ -20,15 +20,17 @@
 			<canvas id="camera-overlay" class="elem-4 camera-overlay is-hidden" aria-hidden="true"></canvas>
 			<div class="camera-status" id="camera-status" aria-live="polite"></div>
 			<div class="elem-5">
-				<div class="elem-6">
-					<div class="elem-7">기록</div>
+				<div class="elem-5-inner">
+					<div class="elem-6">
+						<div class="elem-7">기록</div>
+					</div>
+					<div class="elem-8">
+						<div class="elem-9">카메라</div>
+					</div>
+					<a href="feed.html" class="elem-10 tab-link-feed">
+						<div class="elem-11">피드</div>
+					</a>
 				</div>
-				<div class="elem-8">
-					<div class="elem-9">카메라</div>
-				</div>
-				<a href="feed.html" class="elem-10 tab-link-feed">
-					<div class="elem-11">피드</div>
-				</a>
 			</div>
 			<div class="elem-12">
 				<div class="elem-13">
@@ -39,16 +41,16 @@
 				<div class="elem-16">
 					<img class="elem-17" src="./img/symbol_container.svg"></img>
 					<div class="elem-18">
-						<div class="elem-19">Clear</div>
-						<div class="elem-20">UV Index7</div>
+						<div class="elem-19" id="weather-condition">Clear</div>
+						<div class="elem-20" id="weather-uv">UV Index —</div>
 					</div>
 				</div>
 			</div>
 			<div class="elem-21">
 				<div class="elem-22">
-					<div class="elem-23">Seoul</div>
+					<div class="elem-23" id="weather-location">—</div>
 				</div>
-				<div class="elem-24">65º</div>
+				<div class="elem-24" id="weather-temp">—º</div>
 			</div>
 			<div class="elem-25"></div>
 			<div class="elem-26" id="start-scan" role="button" tabindex="0" aria-label="진단 시작">
