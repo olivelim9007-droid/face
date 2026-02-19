@@ -184,6 +184,11 @@
   color: #8A8A8D;
 }
 
+.record-page #record-list {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .record-page .elem-19,
 .record-page .elem-26,
 .record-page .elem-33,
@@ -191,18 +196,21 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0;
   flex-shrink: 0;
-  width: 311px;
+  width: 100%;
   padding-top: 8px;
   padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 0;
+  box-sizing: border-box;
 }
 
-.record-page .elem-20 { display: flex; justify-content: flex-start; align-items: center; gap: 159px; }
+.record-page .elem-20 { display: flex; justify-content: flex-start; align-items: center; gap: 0; width: 100%; }
 .record-page .elem-21,
 .record-page .elem-28,
 .record-page .elem-35,
-.record-page .elem-42 { display: flex; justify-content: flex-start; align-items: center; gap: 10px; }
+.record-page .elem-42 { display: flex; justify-content: flex-start; align-items: center; gap: 10px; min-width: 0; flex: 1; }
 
 /* 썸네일: 배경 이미지로 표시, 정사각형 고정(찌그러짐 없음) */
 .record-page .record-thumb {
@@ -243,12 +251,25 @@
   font-weight: 600;
   line-height: 16.8px;
   color: var(--semantic-text-active, #222);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .record-page .elem-24,
 .record-page .elem-31,
 .record-page .elem-38,
-.record-page .elem-45 { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+.record-page .elem-45 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
 
 
 .record-page .elem-25,
@@ -261,9 +282,11 @@
   font-weight: 400;
   line-height: 15.6px;
   color: #222;
+  text-align: right;
+  white-space: nowrap;
 }
 
-.record-page .elem-27 { display: flex; justify-content: flex-start; align-items: center; gap: 158px; flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
+.record-page .elem-27 { display: flex; justify-content: flex-start; align-items: center; gap: 12px; flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
 .record-page .elem-30,
 .record-page .elem-37,
 .record-page .elem-44 {
@@ -274,8 +297,8 @@
   color: var(--semantic-text-active, #222);
 }
 
-.record-page .elem-34 { display: flex; justify-content: flex-start; align-items: center; gap: 145px; }
-.record-page .elem-41 { display: flex; justify-content: flex-start; align-items: center; gap: 128px; }
+.record-page .elem-34 { display: flex; justify-content: flex-start; align-items: center; gap: 12px; }
+.record-page .elem-41 { display: flex; justify-content: flex-start; align-items: center; gap: 12px; }
 
 .record-page .record-empty {
   width: 100%;

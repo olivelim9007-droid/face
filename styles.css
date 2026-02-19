@@ -308,7 +308,7 @@ a.elem-10.tab-link-feed {
 
 .elem-21 {
   display: inline-flex;
-  overflow: hidden;
+  overflow: visible;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -316,7 +316,7 @@ a.elem-10.tab-link-feed {
   position: absolute;
   left: 16px;
   top: 44px;
-  width: 126px;
+  width: 220px;
   z-index: 5;
 }
 
@@ -325,6 +325,8 @@ a.elem-10.tab-link-feed {
   justify-content: flex-start;
   align-items: center;
   gap: 4px;
+  min-width: 0;
+  width: 100%;
 }
 
 .elem-23 {
@@ -332,14 +334,17 @@ a.elem-10.tab-link-feed {
   font-size: 15px;
   font-style: normal;
   font-weight: 300;
-  /* line-height가 font-size보다 작아 상단이 잘릴 수 있음 */
   line-height: 18px;
   text-align: left;
   white-space: nowrap;
+  word-break: keep-all;
   color: #FFF;
-  display: inline-block;
+  display: block;
   padding-top: 1px;
   padding-bottom: 1px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .elem-23.weather-location--ko {
   font-family: "Apple SD Gothic Neo", "SF Pro Text", -apple-system, sans-serif;
