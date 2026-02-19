@@ -30,57 +30,87 @@
 					<div class="elem-15">기록</div>
 				</div>
 				<div class="elem-16">
-					<div class="elem-17">
+					<div class="elem-17 record-list-header">
 						<div class="elem-18">최근 업로드</div>
+						<button type="button" class="record-delete-all" id="record-delete-all" aria-label="전체 삭제">전체 삭제</button>
 					</div>
-					<div class="elem-19">
-						<div class="elem-20">
-							<div class="elem-21">
-								<img class="elem-22" src="./img/image.png" alt=""></img>
-								<div class="elem-23">수분</div>
-							</div>
-							<div class="elem-24">
-								<div class="elem-25">2025.12.08</div>
-							</div>
-						</div>
-					</div>
-					<div class="elem-26">
-						<div class="elem-27">
-							<div class="elem-28">
-								<img class="elem-29" src="./img/duplication_image_1.png" alt=""></img>
-								<div class="elem-30">주름</div>
-							</div>
-							<div class="elem-31">
-								<div class="elem-32">2025.12.07</div>
-							</div>
-						</div>
-					</div>
-					<div class="elem-33">
-						<div class="elem-34">
-							<div class="elem-35">
-								<img class="elem-36" src="./img/duplication_image_2.png" alt=""></img>
-								<div class="elem-37">피부결</div>
-							</div>
-							<div class="elem-38">
-								<div class="elem-39">2025.12.06</div>
-							</div>
-						</div>
-					</div>
-					<div class="elem-40">
-						<div class="elem-41">
-							<div class="elem-42">
-								<img class="elem-43" src="./img/duplication_image_3.png" alt=""></img>
-								<div class="elem-44">좌우 대칭</div>
-							</div>
-							<div class="elem-45">
-								<div class="elem-46">2025.12.05</div>
-							</div>
-						</div>
-					</div>
+					<div id="record-list"></div>
+					<div id="record-empty" class="record-empty is-hidden">촬영한 사진이 없습니다.</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+	<script>
+		(function() {
+			var RECORD_LIST_KEY = "skinRecordList";
+			var listEl = document.getElementById("record-list");
+			var emptyEl = document.getElementById("record-empty");
+			var deleteAllBtn = document.getElementById("record-delete-all");
+			if (!listEl) return;
+
+			function getList() {
+				var raw = localStorage.getItem(RECORD_LIST_KEY);
+				var list = raw ? JSON.parse(raw) : [];
+				list.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+				return list;
+			}
+			function saveList(list) {
+				localStorage.setItem(RECORD_LIST_KEY, JSON.stringify(list));
+			}
+			function formatDate(iso) {
+				var d = new Date(iso);
+				var y = d.getFullYear();
+				var m = String(d.getMonth() + 1).padStart(2, "0");
+				var day = String(d.getDate()).padStart(2, "0");
+				return y + "." + m + "." + day;
+			}
+
+			function render() {
+				var list = getList();
+				listEl.innerHTML = "";
+				if (list.length === 0) {
+					if (emptyEl) emptyEl.classList.remove("is-hidden");
+					if (deleteAllBtn) deleteAllBtn.classList.add("is-hidden");
+					return;
+				}
+				if (emptyEl) emptyEl.classList.add("is-hidden");
+				if (deleteAllBtn) deleteAllBtn.classList.remove("is-hidden");
+
+				list.forEach(function(item) {
+					var row = document.createElement("div");
+					row.className = "elem-19";
+					var label = (item.label || "피부 진단").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+					var dateStr = formatDate(item.date);
+					row.innerHTML =
+						"<div class=\"elem-20\">" +
+						"<div class=\"elem-21\">" +
+						"<div class=\"record-thumb\" role=\"img\" aria-label=\"기록 썸네일\"></div>" +
+						"<div class=\"elem-23\">" + label + "</div>" +
+						"</div>" +
+						"<div class=\"elem-24\"><div class=\"elem-25\">" + dateStr + "</div></div>" +
+						"</div>";
+					var thumb = row.querySelector(".record-thumb");
+					if (thumb && item.thumbnail) {
+						var safeUrl = item.thumbnail.replace(/"/g, "\\22 ");
+						thumb.style.backgroundImage = "url(\"" + safeUrl + "\")";
+					}
+					listEl.appendChild(row);
+				});
+			}
+
+			if (deleteAllBtn) {
+				deleteAllBtn.addEventListener("click", function() {
+					var list = getList();
+					if (list.length === 0) return;
+					if (typeof confirm !== "undefined" && !confirm("전체 기록을 삭제할까요?")) return;
+					saveList([]);
+					render();
+				});
+			}
+
+			render();
+		})();
+	</script>
 	<script src="https://pages.oss.navercorp.com/UIT/figma-sync/plugin/prod/core/resize.js"></script>
 </html>

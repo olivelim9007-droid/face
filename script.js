@@ -711,6 +711,10 @@ function analyzeSkin(videoEl, overlayEl, skinState, now) {
 }
 
 
+const RECORD_LIST_KEY = "skinRecordList";
+const RECORD_LIST_MAX = 50;
+const RECORD_LABELS = ["수분", "주름", "피부결", "좌우 대칭"];
+
 function captureFaceToStorage() {
   try {
     if (!video || video.videoWidth === 0 || video.readyState < 2) {
@@ -726,7 +730,31 @@ function captureFaceToStorage() {
     ctx.translate(w, 0);
     ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, w, h);
-    sessionStorage.setItem("faceCapture", canvas.toDataURL("image/jpeg", 0.85));
+    const fullDataUrl = canvas.toDataURL("image/jpeg", 0.85);
+    sessionStorage.setItem("faceCapture", fullDataUrl);
+
+    // 기록 화면용 썸네일을 localStorage에 추가 (최근 업로드 순)
+    const thumbSize = 96;
+    const thumb = document.createElement("canvas");
+    thumb.width = thumbSize;
+    thumb.height = thumbSize;
+    const tCtx = thumb.getContext("2d");
+    tCtx.drawImage(canvas, 0, 0, w, h, 0, 0, thumbSize, thumbSize);
+    const thumbnail = thumb.toDataURL("image/jpeg", 0.75);
+
+    let list = [];
+    try {
+      const raw = localStorage.getItem(RECORD_LIST_KEY);
+      if (raw) list = JSON.parse(raw);
+    } catch (_) {}
+    list.push({
+      id: Date.now(),
+      thumbnail,
+      date: new Date().toISOString(),
+      label: RECORD_LABELS[Math.floor(Math.random() * RECORD_LABELS.length)]
+    });
+    if (list.length > RECORD_LIST_MAX) list = list.slice(-RECORD_LIST_MAX);
+    localStorage.setItem(RECORD_LIST_KEY, JSON.stringify(list));
   } catch (e) {
     console.warn("faceCapture 저장 실패:", e);
     sessionStorage.removeItem("faceCapture");

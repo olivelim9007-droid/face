@@ -319,16 +319,22 @@ a.result-elem-12 {
   height: 21px;
 }
 
-.result-elem-19 {
-  display: block;
+/* 브리핑 썸네일: 배경 이미지로 표시 → html2canvas 캡처 시에도 비율 유지(찌그러짐 없음) */
+.result-briefing-thumb {
   position: absolute;
   left: 16px;
   top: 54px;
   width: 60px;
   height: 60px;
-  object-fit: cover;
-  object-position: center;
+  min-width: 60px;
+  min-height: 60px;
   border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-image: url(./img/profile_image.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .result-elem-20 {

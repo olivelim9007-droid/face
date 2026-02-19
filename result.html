@@ -44,7 +44,7 @@
 							<img class="result-elem-18" src="./img/result_icons.svg" alt=""></img>
 						</div>
 					</div>
-					<img class="result-elem-19" src="./img/profile_image.png" alt=""></img>
+					<div class="result-briefing-thumb" id="result-briefing-thumb" role="img" aria-label="피부 진단 썸네일"></div>
 					<div class="result-elem-20">
 						<div class="result-elem-21">
 							<div class="result-elem-22">
@@ -195,13 +195,17 @@
 		var styleTexts = document.querySelectorAll('.result-elem-65, .result-elem-70, .result-elem-75, .result-elem-80');
 		styleNames.forEach(function(el, i) { if (titles[i]) el.textContent = titles[i]; });
 		styleTexts.forEach(function(el, i) { if (descs[i]) el.textContent = descs[i]; });
-		// 스캔 시 캡처한 얼굴 이미지를 result-elem-19에 표시
+		// 스캔 시 캡처한 얼굴 이미지를 브리핑 썸네일(배경)에 표시 (캡처 시 찌그러짐 방지)
 		try {
 			var faceUrl = sessionStorage.getItem('faceCapture');
-			if (faceUrl) {
-				var faceImg = document.querySelector('.result-elem-19');
-				if (faceImg) faceImg.src = faceUrl;
-				sessionStorage.removeItem('faceCapture');
+			var thumbWrap = document.getElementById('result-briefing-thumb');
+			if (thumbWrap) {
+				if (faceUrl) {
+					thumbWrap.style.backgroundImage = 'url(' + faceUrl + ')';
+					sessionStorage.removeItem('faceCapture');
+				} else {
+					thumbWrap.style.backgroundImage = 'url(./img/profile_image.png)';
+				}
 			}
 		} catch (e) {}
 		// 모달 안에서 열렸을 때 뒤로/엑스 버튼 누르면 모달만 닫고 카메라 화면으로
@@ -219,14 +223,80 @@
 		var savedModal = document.getElementById('saved-image-modal');
 		var savedPreview = document.getElementById('saved-image-preview');
 		var savedClose = document.getElementById('saved-image-close');
-		var captureTarget = document.querySelector('.result-elem-2');
-		if (saveBtn && savedModal && savedPreview && captureTarget) {
+		var captureTarget = document.querySelector('.result-elem-3');
+		if (saveBtn && captureTarget) {
 			saveBtn.addEventListener('click', function() {
-				html2canvas(captureTarget, { useCORS: true, scale: 2, backgroundColor: '#f2f2f7' }).then(function(canvas) {
-					savedPreview.src = canvas.toDataURL('image/png');
-					savedModal.classList.remove('is-hidden');
-					savedModal.setAttribute('aria-hidden', 'false');
-				}).catch(function(err) { console.warn('캡처 실패:', err); });
+				var origTransform = captureTarget.style.transform || '';
+				captureTarget.style.transform = 'none';
+				window.scrollTo(0, 0);
+				if (document.documentElement) document.documentElement.scrollTop = 0;
+				if (document.body) document.body.scrollTop = 0;
+
+				// 그래프가 애니메이션 최종 상태로 캡처되도록 강제 (opacity 0 → 1)
+				var graphPath = document.querySelector('.result-elem-32');
+				var graphPathOrigOpacity = '';
+				var graphPathOrigTransform = '';
+				var graphPathOrigAnimation = '';
+				if (graphPath && graphPath.style) {
+					graphPathOrigOpacity = graphPath.style.opacity || '';
+					graphPathOrigTransform = graphPath.style.transform || '';
+					graphPathOrigAnimation = graphPath.style.animation || '';
+					graphPath.style.opacity = '1';
+					graphPath.style.transform = 'scale(1)';
+					graphPath.style.animation = 'none';
+				}
+
+				var fullW = 375;
+				var fullH = Math.max(captureTarget.scrollHeight, 1581);
+				var opts = {
+					useCORS: true,
+					allowTaint: true,
+					scale: 2,
+					backgroundColor: '#f2f2f7',
+					width: fullW,
+					height: fullH,
+					scrollX: 0,
+					scrollY: 0,
+					x: 0,
+					y: 0
+				};
+				html2canvas(captureTarget, opts).then(function(canvas) {
+					var cropTop = 44;
+					var w = canvas.width;
+					var h = canvas.height;
+					if (h > cropTop) {
+						var cropped = document.createElement('canvas');
+						cropped.width = w;
+						cropped.height = h - cropTop;
+						var ctx = cropped.getContext('2d');
+						ctx.drawImage(canvas, 0, cropTop, w, h - cropTop, 0, 0, w, h - cropTop);
+						canvas = cropped;
+					}
+					var dataUrl = canvas.toDataURL('image/png');
+					var now = new Date();
+					var y = now.getFullYear();
+					var m = String(now.getMonth() + 1).padStart(2, '0');
+					var d = String(now.getDate()).padStart(2, '0');
+					var h = String(now.getHours()).padStart(2, '0');
+					var min = String(now.getMinutes()).padStart(2, '0');
+					var sec = String(now.getSeconds()).padStart(2, '0');
+					var fileName = '피부진단_' + y + '-' + m + '-' + d + '_' + h + '-' + min + '-' + sec + '.png';
+					var a = document.createElement('a');
+					a.href = dataUrl;
+					a.download = fileName;
+					a.style.display = 'none';
+					document.body.appendChild(a);
+					a.click();
+					document.body.removeChild(a);
+				}).catch(function(err) { console.warn('캡처 실패:', err); })
+					.finally(function() {
+						captureTarget.style.transform = origTransform;
+						if (graphPath && graphPath.style) {
+							graphPath.style.opacity = graphPathOrigOpacity;
+							graphPath.style.transform = graphPathOrigTransform;
+							graphPath.style.animation = graphPathOrigAnimation;
+						}
+					});
 			});
 			function closeSavedModal() {
 				savedModal.classList.add('is-hidden');
