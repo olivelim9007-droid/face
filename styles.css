@@ -187,6 +187,10 @@ html, body {
   flex-basis: 0px;
 }
 
+a.elem-7.tab-link-record {
+  text-decoration: none;
+  color: #fff;
+}
 a.elem-10.tab-link-feed {
   text-decoration: none;
   color: inherit;
@@ -294,7 +298,7 @@ a.elem-10.tab-link-feed {
   font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-size: 13px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 10.27px;
   text-align: right;
   white-space: nowrap;
@@ -327,7 +331,7 @@ a.elem-10.tab-link-feed {
   font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-size: 15px;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 300;
   /* line-height가 font-size보다 작아 상단이 잘릴 수 있음 */
   line-height: 18px;
   text-align: left;

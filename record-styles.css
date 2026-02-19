@@ -1,0 +1,236 @@
+/* 기록 화면 — 20260219_121254 UI (record-page 전용) */
+* {box-sizing: border-box; margin: 0; padding: 0;}
+
+.record-page .elem-1 { padding: 0; margin: 0; }
+
+.record-page .elem-2 {
+  overflow: hidden;
+  position: relative;
+  width: 375px;
+  height: 812px;
+  margin: 0 auto;
+}
+
+.record-page .elem-3 {
+  background-color: var(--backgrounds--grouped--primary, #F2F2F7);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.record-page .record-tab-bar.elem-4 {
+  background-color: #ffffff;
+  backdrop-filter: blur(6px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 754px;
+  bottom: 0;
+  width: 100%;
+  min-height: 34px;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.record-page .elem-5 {
+  overflow: hidden;
+  position: absolute;
+  left: 87.5px;
+  top: 0;
+  width: 200px;
+  height: 34px;
+}
+
+.record-page .elem-6 {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.record-page .elem-7,
+.record-page .elem-9,
+.record-page .elem-11 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.record-page .elem-8 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #000;
+}
+
+.record-page .elem-10,
+.record-page .elem-12 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #9D9DA4;
+}
+
+.record-page .elem-13 {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  position: absolute;
+  left: 0;
+  top: max(44px, env(safe-area-inset-top, 0px));
+  width: 375px;
+  padding-top: 0;
+  box-sizing: border-box;
+}
+
+.record-page .elem-14 {
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  padding-top: 13px;
+  padding-right: 16px;
+  padding-bottom: 13px;
+  padding-left: 16px;
+}
+
+.record-page .elem-15 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26.4px;
+  text-align: left;
+  white-space: nowrap;
+  color: var(--semantic-text-active, #222);
+}
+
+.record-page .elem-16 {
+  background-color: #FFF;
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-shrink: 0;
+  width: 343px;
+  padding-bottom: 20px;
+}
+
+.record-page .elem-17 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  align-self: stretch;
+  height: 48px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+.record-page .elem-18 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15.6px;
+  text-align: left;
+  white-space: nowrap;
+  color: #8A8A8D;
+}
+
+.record-page .elem-19,
+.record-page .elem-26,
+.record-page .elem-33,
+.record-page .elem-40 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 311px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.record-page .elem-20 { display: flex; justify-content: flex-start; align-items: center; gap: 159px; }
+.record-page .elem-21,
+.record-page .elem-28,
+.record-page .elem-35,
+.record-page .elem-42 { display: flex; justify-content: flex-start; align-items: center; gap: 10px; }
+
+.record-page .elem-22,
+.record-page .elem-29,
+.record-page .elem-36,
+.record-page .elem-43 {
+  display: block;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.record-page .elem-23 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.8px;
+  color: var(--semantic-text-active, #222);
+}
+
+.record-page .elem-24,
+.record-page .elem-31,
+.record-page .elem-38,
+.record-page .elem-45 { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+
+.record-page .elem-25,
+.record-page .elem-32,
+.record-page .elem-39,
+.record-page .elem-46 {
+  opacity: 0.3;
+  font-family: SF Pro, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15.6px;
+  color: #222;
+}
+
+.record-page .elem-27 { display: flex; justify-content: flex-start; align-items: center; gap: 158px; flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
+.record-page .elem-30,
+.record-page .elem-37,
+.record-page .elem-44 {
+  font-family: Apple SD Gothic Neo, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18px;
+  color: var(--semantic-text-active, #222);
+}
+
+.record-page .elem-34 { display: flex; justify-content: flex-start; align-items: center; gap: 145px; }
+.record-page .elem-41 { display: flex; justify-content: flex-start; align-items: center; gap: 128px; }
