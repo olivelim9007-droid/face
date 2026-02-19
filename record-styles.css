@@ -212,7 +212,7 @@
 .record-page .elem-35,
 .record-page .elem-42 { display: flex; justify-content: flex-start; align-items: center; gap: 10px; min-width: 0; flex: 1; }
 
-/* 썸네일: 배경 이미지로 표시, 정사각형 고정(찌그러짐 없음) */
+/* 썸네일: 결과 페이지(result-briefing-thumb)와 동일 스타일 — 배경 이미지로 표시, 비율 유지(찌그러짐 없음) */
 .record-page .record-thumb {
   flex-shrink: 0;
   flex-grow: 0;
@@ -222,12 +222,10 @@
   height: 48px;
   min-width: 48px;
   min-height: 48px;
-  max-width: 48px;
-  max-height: 48px;
-  aspect-ratio: 1;
-  box-sizing: border-box;
   border-radius: 12px;
   overflow: hidden;
+  box-sizing: border-box;
+  background-image: url(./img/profile_image.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
