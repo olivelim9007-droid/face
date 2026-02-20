@@ -212,16 +212,18 @@
 .record-page .elem-35,
 .record-page .elem-42 { display: flex; justify-content: flex-start; align-items: center; gap: 10px; min-width: 0; flex: 1; }
 
-/* 썸네일: 결과 페이지(result-briefing-thumb)와 동일 스타일 — 배경 이미지로 표시, 비율 유지(찌그러짐 없음) */
+/* 썸네일: 48×48 정사각형 고정(렌더 크기 보장), 배경 중앙 크롭 */
 .record-page .record-thumb {
-  flex-shrink: 0;
-  flex-grow: 0;
+  flex: 0 0 48px;
   align-self: center;
   display: block;
   width: 48px;
   height: 48px;
   min-width: 48px;
   min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  aspect-ratio: 1;
   border-radius: 12px;
   overflow: hidden;
   box-sizing: border-box;
@@ -229,6 +231,14 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* img 태그 사용 시 비율 유지 */
+.record-page .record-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .record-page .elem-22,
